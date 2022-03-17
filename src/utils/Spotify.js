@@ -1,5 +1,5 @@
 // TODO: Get Client ID from https://developer.spotify.com/dashboard/ and put it here
-const clientId = " 6b2a051867864884aefff23bec5d34f6";
+const clientId = "6b2a051867864884aefff23bec5d34f6";
 let accessToken;
 const redirectUri = "http://localhost:3000/";
 
@@ -36,10 +36,11 @@ const Spotify = {
         return response.json();
       })
       .then((jsonResponse) => {
-        if (!jsonResponse.track) {
+        console.log(jsonResponse);
+        if (!jsonResponse.tracks) {
           return [];
         }
-        return jsonResponse.track.items.map((track) => ({
+        return jsonResponse.tracks.items.map((track) => ({
           id: track.id,
           name: track.name,
           artist: track.artists[0].name,
@@ -82,61 +83,3 @@ const Spotify = {
   },
 };
 export default Spotify;
-
-//   async search(term) {
-//     const searchUrl = `https://api.spotify.com/v1/search?type=track&q=${term.replace(
-//       " ",
-//       "%20"
-//     )}`;
-//     return fetch(searchUrl, {
-//       headers: {
-//         Authorization: `Bearer ${accessToken}`,
-//       },
-//     })
-//       .then((response) => response.json())
-//       .then((jsonResponse) => {
-//         if (!jsonResponse.tracks) return [];
-//         return jsonResponse.tracks.items.map((track) => {
-//           return {
-//             id: track.id,
-//             name: track.name,
-//             artist: track.artists[0].name,
-//             album: track.album.name,
-//             uri: track.uri,
-//           };
-//         });
-//       });
-//   },
-
-//   async savePlaylist(name, trackIds) {
-//     if (Array.isArray(trackIds) && trackIds.length) {
-//       const createPlaylistUrl = `https://api.spotify.com/v1/me/playlists`;
-//       const response = await fetch(createPlaylistUrl, {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//           Authorization: `Bearer ${accessToken}`,
-//         },
-//         body: JSON.stringify({
-//           name: name,
-//           public: true,
-//         }),
-//       });
-//       const jsonResponse = await response.json();
-//       const playlistId = jsonResponse.id;
-//       if (playlistId) {
-//         const replacePlaylistTracksUrl = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`;
-//         await fetch(replacePlaylistTracksUrl, {
-//           method: "PUT",
-//           headers: {
-//             "Content-Type": "application/json",
-//             Authorization: `Bearer ${accessToken}`,
-//           },
-//           body: JSON.stringify({
-//             uris: trackIds.map((id) => "spotify:track:".concat(id)),
-//           }),
-//         });
-//       }
-//     }
-//   },
-// };
