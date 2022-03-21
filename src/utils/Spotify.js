@@ -1,7 +1,7 @@
 // TODO: Get Client ID from https://developer.spotify.com/dashboard/ and put it here
 const clientId = "6b2a051867864884aefff23bec5d34f6";
 let accessToken;
-const redirectUri = "http://localhost:3000/";
+const redirectUri = "https://jammingbyopaul.netlify.app/";
 
 const Spotify = {
   getAccessToken() {
